@@ -1,21 +1,22 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  Divider,
+  IconButton
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
-import { mainMenuItems, secondaryMenuItems } from './listItems';
-import Button from '@material-ui/core/Button';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import { mainMenuItems, secondaryMenuItems } from './listItems';
 import ToggleButton from './ToogleButton';
+import AuthMenu from './AuthMenu';
 import styled from "styled-components";
 
 import './Layout.styles.css';
@@ -81,7 +82,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
@@ -155,7 +155,7 @@ function Layout({ children }) {
               icon = {<LightIcon/>}
               selectedIcon = {<DarkIcon/>}
             />
-            <Button color="inherit">Login</Button>
+            <AuthMenu/>
           </RightItemsContainer>
         </StyledToolbar>
       </StyledAppBar>

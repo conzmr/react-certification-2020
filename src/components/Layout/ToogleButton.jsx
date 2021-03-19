@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconButton } from '@material-ui/core';
 
-export default function ToggleButton({selectedIcon, icon, selected, onClick}) {
+function ToggleButton({selectedIcon, icon, selected, onClick}) {
   return (
     <IconButton
       selected={selected}
@@ -11,5 +11,7 @@ export default function ToggleButton({selectedIcon, icon, selected, onClick}) {
     </IconButton>
   );
 }
+
+export default ToggleButton;
 
 
