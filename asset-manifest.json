@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-certification-2020/static/css/main.46641cc8.chunk.css",
+    "main.js": "/react-certification-2020/static/js/main.3bd034b9.chunk.js",
+    "main.js.map": "/react-certification-2020/static/js/main.3bd034b9.chunk.js.map",
+    "runtime-main.js": "/react-certification-2020/static/js/runtime-main.bc9b5504.js",
+    "runtime-main.js.map": "/react-certification-2020/static/js/runtime-main.bc9b5504.js.map",
+    "static/js/2.9ec84cd8.chunk.js": "/react-certification-2020/static/js/2.9ec84cd8.chunk.js",
+    "static/js/2.9ec84cd8.chunk.js.map": "/react-certification-2020/static/js/2.9ec84cd8.chunk.js.map",
+    "index.html": "/react-certification-2020/index.html",
+    "precache-manifest.2e4ca585d50dcb98611fa30c8fe6c311.js": "/react-certification-2020/precache-manifest.2e4ca585d50dcb98611fa30c8fe6c311.js",
+    "service-worker.js": "/react-certification-2020/service-worker.js",
+    "static/css/main.46641cc8.chunk.css.map": "/react-certification-2020/static/css/main.46641cc8.chunk.css.map",
+    "static/js/2.9ec84cd8.chunk.js.LICENSE.txt": "/react-certification-2020/static/js/2.9ec84cd8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bc9b5504.js",
+    "static/js/2.9ec84cd8.chunk.js",
+    "static/css/main.46641cc8.chunk.css",
+    "static/js/main.3bd034b9.chunk.js"
+  ]
+}
