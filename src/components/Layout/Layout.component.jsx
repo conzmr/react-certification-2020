@@ -15,7 +15,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { mainMenuItems, secondaryMenuItems } from './listItems';
-import ToggleButton from './ToogleButton';
+import ToggleButton from '../ToogleButton';
 import AuthMenu from './AuthMenu';
 import styled from "styled-components";
 
