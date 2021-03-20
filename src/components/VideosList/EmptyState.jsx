@@ -13,10 +13,12 @@ const Icon = styled(YouTubeIcon)`
 `;
 
 function EmptyState() {
-  return <MessageContainer>
-    <Icon/>
-    <h3>No videos to show</h3>
-  </MessageContainer>;
+  return (
+    <MessageContainer>
+      <Icon />
+      <h3>No videos to show</h3>
+    </MessageContainer>
+  );
 }
 
 export default EmptyState;
