@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './Home.styles.css';
 import VideosList from '../../components/VideosList';
-import videos from '../../components/__mocks__/youtube-videos-mock';
+import videos from '../../components/__mocks__/youtube-videos-mock.json';
 
 function HomePage() {
   const sectionRef = useRef(null);

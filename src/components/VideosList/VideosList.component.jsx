@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import uuid from 'react-uuid';
 import VideoCard from '../VideoCard';
 import EmptyState from './EmptyState';
 
 function VideosList({ videos }) {
   return (
     <>
-      {videos.length ? (
+      {videos && videos.length ? (
         videos.map((video) => {
           const { id, snippet } = video;
           const { thumbnails, channelTitle, title, publishedAt } = snippet;
@@ -13,6 +14,7 @@ function VideosList({ videos }) {
           if (id && id.videoId)
             return (
               <VideoCard
+                key={uuid()}
                 img={img}
                 title={title}
                 channel={channelTitle}
