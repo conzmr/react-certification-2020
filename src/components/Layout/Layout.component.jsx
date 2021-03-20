@@ -1,26 +1,18 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-  Drawer,
-  AppBar,
-  Toolbar,
-  List,
-  Divider,
-  IconButton
-} from '@material-ui/core';
+import { Drawer, AppBar, Toolbar, List, Divider, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import styled from 'styled-components';
 import { mainMenuItems, secondaryMenuItems } from './listItems';
 import ToggleButton from '../ToogleButton';
-import AuthMenu from './AuthMenu';
-import styled from "styled-components";
-
+import AuthMenu from '../AuthMenu';
+import SearchBar from '../SearchBar';
 import './Layout.styles.css';
-import SearchBar from './SearchBar';
 
 const drawerWidth = 240;
 
@@ -91,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DarkIcon = styled(Brightness4Icon)`
-   color: #606060;
+  color: #606060;
 `;
 
 const LightIcon = styled(Brightness7Icon)`
@@ -104,8 +96,10 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 const StyledAppBar = styled(AppBar)`
-  ${({lightMode}) => lightMode ? 
-  'background: white; border-color: #ddd #ddd #ccc;' : 'background: #303030; border-bottom: 2px solid #383838;'}
+  ${({ lightMode }) =>
+    lightMode
+      ? 'background: white; border-color: #ddd #ddd #ccc;'
+      : 'background: #303030; border-bottom: 2px solid #383838;'}
 `;
 
 const RightItemsContainer = styled.div`
@@ -147,15 +141,17 @@ function Layout({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <SearchBar/>
+          <SearchBar />
           <RightItemsContainer>
             <ToggleButton
-              onClick={() => {setLightMode(!lightMode)}}
+              onClick={() => {
+                setLightMode(!lightMode);
+              }}
               selected={lightMode}
-              icon = {<LightIcon/>}
-              selectedIcon = {<DarkIcon/>}
+              icon={<LightIcon data-testid="toogle-base-icon" />}
+              selectedIcon={<DarkIcon data-testid="toogle-dark-icon" />}
             />
-            <AuthMenu/>
+            <AuthMenu />
           </RightItemsContainer>
         </StyledToolbar>
       </StyledAppBar>
@@ -177,7 +173,7 @@ function Layout({ children }) {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        <Divider/>
+        <Divider />
         <List>{mainMenuItems}</List>
         <Divider />
         <List>{secondaryMenuItems}</List>
@@ -186,6 +182,5 @@ function Layout({ children }) {
     </div>
   );
 }
-
 
 export default Layout;
