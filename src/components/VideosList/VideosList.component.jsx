@@ -5,7 +5,7 @@ import EmptyState from './EmptyState';
 
 function VideosList({ videos }) {
   return (
-    <>
+    <Fragment>
       {videos && videos.length ? (
         videos.map((video) => {
           const { id, snippet } = video;
@@ -26,7 +26,7 @@ function VideosList({ videos }) {
       ) : (
         <EmptyState />
       )}
-    </>
+    </Fragment>
   );
 }
 
