@@ -6,7 +6,7 @@ function VideosList({ videos }) {
   return (
     <>
       {videos.length ? (
-        videos.items.map((video) => {
+        videos.map((video) => {
           const { id, snippet } = video;
           const { thumbnails, channelTitle, title, publishedAt } = snippet;
           const img = thumbnails && thumbnails.high && thumbnails.high.url;
