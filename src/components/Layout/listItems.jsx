@@ -1,14 +1,11 @@
 import React from 'react';
-import {ListSubheader,
-  ListItemText,
-  ListItemIcon,
-  ListItem
-} from '@material-ui/core';
+import { ListSubheader, ListItemText, ListItemIcon, ListItem } from '@material-ui/core';
 import HistoryIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import HelpIcon from '@material-ui/icons/Help';
 import FeedbackIcon from '@material-ui/icons/Feedback';
+
 export const mainMenuItems = (
   <div>
     <ListItem button>
