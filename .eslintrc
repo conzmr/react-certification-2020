@@ -2,6 +2,7 @@
   "extends": ["react-app", "airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "prettier/prettier": "error",
      "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react-hooks/exhaustive-deps": "warn",
