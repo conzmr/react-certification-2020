@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { useAuth } from '../../providers/Auth';
 
 function AuthMenu() {
-  const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
   const { authenticated, logout } = useAuth();
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   function deAuthenticate(event) {
     event.preventDefault();
@@ -23,34 +12,17 @@ function AuthMenu() {
     history.push('/');
   }
 
-  const menuId = 'user-menu';
+  const linkClassName =
+    'text-sm p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-white';
 
   return authenticated ? (
-    <>
-      <IconButton
-        edge="end"
-        aria-label="Current user account menu"
-        aria-controls={menuId}
-        aria-haspopup="true"
-        onClick={handleClick}
-        color="inherit"
-      >
-        <AccountCircle />
-      </IconButton>
-      <Menu
-        id={menuId}
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={deAuthenticate}>Logout</MenuItem>
-      </Menu>
-    </>
+    <button type="button" className={linkClassName} onClick={deAuthenticate}>
+      Log out
+    </button>
   ) : (
-    <Link to="/login">Log in</Link>
+    <Link to="/login" className={linkClassName}>
+      Sign in
+    </Link>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import AuthMenu from './AuthMenu.component';
 import { useAuth } from '../../providers/Auth';
@@ -18,18 +18,18 @@ describe('AuthMenu', () => {
         <AuthMenu />
       </BrowserRouter>
     );
-    expect(container).toHaveTextContent('Log in');
+    expect(container).toHaveTextContent('Sign in');
   });
 
   it('renders list menu if user is authenticated', () => {
     useAuth.mockImplementation(() => {
       return { authenticated: true, logout: jest.fn() };
     });
-    render(
+    const { container } = render(
       <BrowserRouter>
         <AuthMenu />
       </BrowserRouter>
     );
-    expect(screen.getByText('Profile')).toBeTruthy();
+    expect(container).toHaveTextContent('Log out');
   });
 });

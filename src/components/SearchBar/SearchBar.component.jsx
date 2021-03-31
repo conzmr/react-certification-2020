@@ -1,46 +1,51 @@
-import React from 'react';
-import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import React, { useState } from 'react';
 
-const IconContainer = styled.div`
-  padding: 0 6px;
-  height: 100%;
-  position: absolute;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+function SearchBar({ value, onChange }) {
+  const [keyWord, setKeyWord] = useState(value);
 
-const StyledInput = styled(InputBase)`
-  width: 100%;
-  margin-left: 40px;
-  color: white;
-`;
+  const triggerChange = () => {
+    if (keyWord && onChange) onChange(keyWord);
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      triggerChange();
+    }
+  };
+  const handleChange = (event) => {
+    setKeyWord(event.target.value);
+  };
 
-const SearchContainer = styled.div`
-  width: 100%;
-  max-width: 500px;
-  position: relative;
-  border-radius: 6px;
-  background-color: #121212;
-  border: 1px solid #303030;
-  margin: 0 5px;
-`;
-
-function SearchBar({ value }) {
   return (
-    <SearchContainer>
-      <IconContainer>
-        <SearchIcon />
-      </IconContainer>
-      <StyledInput
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-        value={value}
+    <div className="relative mx-auto text-gray-600">
+      <input
+        className="border-1 border-gray-300 bg-white dark:bg-black h-10 px-5 pr-10 rounded-lg text-sm focus:outline-none"
+        type="search"
+        name="search"
+        placeholder="Search..."
+        value={keyWord}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
-    </SearchContainer>
+      <button
+        type="submit"
+        className="absolute right-4 top-3 text-gray-600 h-4 w-4 focus:outline-none"
+        onClick={triggerChange}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </button>
+    </div>
   );
 }
 
