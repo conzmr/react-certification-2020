@@ -3,10 +3,10 @@ import VideoCard from '../VideoCard';
 import EmptyState from './EmptyState';
 import LoadingOverlay from '../LoadingOverlay';
 
-function VideosList({isLoading, videos}) {
-  if (isLoading) return <LoadingOverlay/>; 
+function VideosList({ isLoading, videos }) {
+  if (isLoading) return <LoadingOverlay />;
   return (
-    <Fragment>
+    <>
       {videos && videos.length ? (
         videos.map((video) => {
           const { id, thumbnails, channelTitle, title, publishedAt } = video;
@@ -19,12 +19,12 @@ function VideosList({isLoading, videos}) {
               channel={channelTitle}
               publishedAt={publishedAt}
             />
-          );;
+          );
         })
       ) : (
         <EmptyState />
       )}
-    </Fragment>
+    </>
   );
 }
 

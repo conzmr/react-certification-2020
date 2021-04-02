@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
-function SearchBar({ value}) {
+function SearchBar({ value }) {
   const history = useHistory();
   const [keyWord, setKeyWord] = useState(value);
 
   const triggerChange = () => {
-    if (keyWord) history.push('/results?q='+keyWord.replace(' ', '+'));
+    if (keyWord) history.push(`/results?q=${keyWord.replace(' ', '+')}`);
   };
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
