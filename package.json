@@ -18,6 +18,7 @@
     "moment": "^2.29.1",
     "next": "^10.1.2",
     "postcss-cli-simple": "^3.1.0",
+    "query-string": "^7.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router": "^5.2.0",

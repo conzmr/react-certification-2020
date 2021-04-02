@@ -38,6 +38,9 @@ function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
+            <Route exact path="/results">
+              <HomePage />
+            </Route>
             <Route exact path="/login">
               <LoginPage />
             </Route>
