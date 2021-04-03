@@ -6,7 +6,8 @@ function SearchBar({ value }) {
   const [keyWord, setKeyWord] = useState(value);
 
   const triggerChange = () => {
-    if (keyWord) history.push(`/results?q=${keyWord.replace(' ', '+')}`);
+    if (!keyWord) history.push('/');
+    else history.push(`/results?q=${keyWord.replace(' ', '+')}`);
   };
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -20,7 +21,7 @@ function SearchBar({ value }) {
   return (
     <div className="relative mx-auto text-gray-600">
       <input
-        className="border-1 border-gray-300 bg-white dark:bg-black h-10 px-5 pr-10 rounded-lg text-sm focus:outline-none"
+        className="border-1 border-gray-300 bg-white dark:bg-black-900 dark:border-black-100 h-10 px-5 pr-10 rounded-lg text-sm focus:outline-none"
         type="search"
         name="search"
         placeholder="Search..."

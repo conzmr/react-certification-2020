@@ -11,9 +11,9 @@ function HomePage() {
   const { search } = useLocation();
   const query = queryString.parse(search).q;
   const url = query
-    ? `search?q=${encodeURIComponent(query)}`
-    : 'videos?chart=mostPopular';
-  const [isLoading, , videos] = useYoutubeV3(url, true);
+    ? `search?q=${encodeURIComponent(query)}&part=snippet&type=video&maxResults=25`
+    : 'videos?chart=mostPopular&part=snippet&type=video&maxResults=25';
+  const [isLoading, videos] = useYoutubeV3(url, true);
   return (
     <section className="homepage" ref={sectionRef}>
       <VideosList videos={videos} isLoading={isLoading} />

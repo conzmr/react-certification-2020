@@ -13,7 +13,7 @@ function AuthMenu() {
   }
 
   const linkClassName =
-    'text-sm p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-white';
+    'text-sm p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-black-50';
 
   return authenticated ? (
     <button type="button" className={linkClassName} onClick={deAuthenticate}>

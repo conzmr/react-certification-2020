@@ -1,58 +1,47 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const useYoutubeV3 = (url, isList) => {
-  const [loadedVideo, setLoadedVideo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [videos, setVideosList] = useState([]);
+  const [response, setResponse] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const baseURL = 'https://youtube.googleapis.com/youtube/v3/';
-  const key = 'AIzaSyAd6QgvL3SGC8fRlh7y38uLp-WrLEQMwRw';
-  const fullUrl = `${baseURL}${url}&part=snippet&type=video&maxResults=25&key=${key}`;
+  const key = 'AIzaSyBWSm1p0enwojA4l7iDFxy9llXbwz4rrXE';
+  const fullUrl = `${baseURL}${url}&key=${key}`;
 
-  const parseDetail = (data) => {
-    console.log('data', data);
-    // const loadedVideo = {
-    //   image: `https://img.pokemondb.net/artwork/large/${data.name}.jpg`,
-    //   name: data.name,
-    //   height: data.height,
-    //   weight: data.weight,
-    //   type: data.types[0].type.name,
-    //   movesCount: data.moves.length,
-    // }
-    return loadedVideo;
-  };
-
-  const parseList = (data) => {
-    const list = data.items.map((video, index) => ({
+  const parseVideos = (data) => {
+    const list = data.items.map((video) => ({
       ...video.snippet,
-      id: video.id && video.id.videoId,
+      id: typeof video.id === 'string' ? video.id : video.id.videoId,
     }));
     return list;
+  };
+
+  const parseVideo = (data) => {
+    const video = data.items[0];
+    return {
+      ...video.snippet,
+      statistics: video.statistics,
+    };
   };
 
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(fullUrl);
-      const data = await response.json();
-      if (!isList) {
-        const video = parseDetail(data);
-        setLoadedVideo(video);
-      } else {
-        const list = parseList(data);
-        setVideosList(list);
-      }
+      const res = await fetch(fullUrl);
+      const data = await res.json();
+      const parsedData = isList ? parseVideos(data) : parseVideo(data);
+      setResponse(parsedData);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
-  }, [url, isList]);
+  }, [fullUrl, isList]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  return [isLoading, loadedVideo, videos];
+  return [isLoading, response];
 };
 
 export default useYoutubeV3;

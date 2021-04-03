@@ -11,6 +11,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 const CardImg = styled(CardMedia)`
   height: 0;
@@ -53,9 +54,38 @@ const StyledCardHeader = styled(CardHeader)`
   padding: 6px;
 `;
 
-function VideoCard({ title, channel, publishedAt, img }) {
+function VideoCard({ id, title, channel, publishedAt, img, direction }) {
+  const history = useHistory();
+
+  const goToDetail = () => {
+    history.push(`/video/${id}`);
+  };
+
+  const hCard = (
+    <div
+      className="flex flex-row h-34 cursor-pointer mb-2"
+      role="button"
+      onClick={goToDetail}
+      onKeyDown={goToDetail}
+      tabIndex={0}
+    >
+      <div className="bg-black mr-2" style={{ minWidth: '168px' }}>
+        <img width="168" src={img} alt="video-thumbnail" />
+      </div>
+      <div className="flex flex-col flex-grow p-1">
+        <p className="text-sm font-medium text-gray-500 dark:text-white">{title}</p>
+        <p className="text-xs text-gray-500 dark:text-white">{channel}</p>
+        <p className="text-xs text-gray-500 dark:text-white">
+          {moment(publishedAt).fromNow()}
+        </p>
+      </div>
+    </div>
+  );
+
+  if (direction === 'horizontal') return hCard;
+
   return (
-    <StyledCard>
+    <StyledCard onClick={goToDetail}>
       <CardImg image={img} />
       <CardContent>
         <Title>{title}</Title>
