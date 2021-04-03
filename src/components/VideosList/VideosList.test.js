@@ -21,6 +21,6 @@ describe('VideosList', () => {
 
   it('renders only video cards with video information', () => {
     const wrapper = shallow(<VideosList videos={videos.items} />);
-    expect(wrapper.find(VideoCard).length).toEqual(videos.items.length - 1);
+    expect(wrapper.find(VideoCard).length).toEqual(videos.items.length);
   });
 });
