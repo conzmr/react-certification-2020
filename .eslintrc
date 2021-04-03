@@ -2,8 +2,9 @@
   "extends": ["react-app", "airbnb", "prettier", "prettier/react"],
   "plugins": ["prettier"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "prettier/prettier": "error",
-    "react/jsx-filename-extension": "error",
+     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react-hooks/exhaustive-deps": "warn",
     "import/no-unresolved": ["off", { "ignore": [".css$"] }],
     "import/prefer-default-export": "off",
@@ -12,6 +13,7 @@
     "react/prop-types": "off",
     "array-callback-return": "off",
     "consistent-return": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-unused-vars": "warn"
   }
 }
