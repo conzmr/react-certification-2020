@@ -10,34 +10,37 @@ import VideoDetail from '../../pages/VideoDetail';
 import Private from '../Private';
 import Fortune from '../Fortune';
 import Layout from '../Layout';
+import GlobalProvider from '../../state/GlobalProvider';;
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Layout>
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/results">
-              <HomePage />
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Route exact path="/video/:id">
-              <VideoDetail />
-            </Route>
-            <Private exact path="/secret">
-              <SecretPage />
-            </Private>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-          <Fortune />
-        </Layout>
+        <GlobalProvider>
+          <Layout>
+            <Switch>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route exact path="/results">
+                <HomePage />
+              </Route>
+              <Route exact path="/login">
+                <LoginPage />
+              </Route>
+              <Route exact path="/video/:id">
+                <VideoDetail />
+              </Route>
+              <Private exact path="/secret">
+                <SecretPage />
+              </Private>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+            <Fortune />
+          </Layout>
+        </GlobalProvider>
       </AuthProvider>
     </BrowserRouter>
   );

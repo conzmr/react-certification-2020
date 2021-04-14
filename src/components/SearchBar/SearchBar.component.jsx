@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useGlobalContext } from '../../state/GlobalProvider';
 
-function SearchBar({ value }) {
+function SearchBar() {
+  const {state, dispatch} = useGlobalContext();
   const history = useHistory();
-  const [keyWord, setKeyWord] = useState(value);
+  const [keyWord, setKeyWord] = useState(state.searchTerm);
 
   const triggerChange = () => {
+    dispatch({
+      type: 'SET_SEARCH_TERM',
+      payload: keyWord
+    });
     if (!keyWord) history.push('/');
     else history.push(`/results?q=${keyWord.replace(' ', '+')}`);
   };
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       triggerChange();
