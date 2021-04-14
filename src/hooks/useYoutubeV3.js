@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useGlobalContext } from '../state/GlobalProvider';
 
 const useYoutubeV3 = (url, isList) => {
   const [response, setResponse] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const { dispatch } = useGlobalContext();
   const baseURL = 'https://youtube.googleapis.com/youtube/v3/';
   const key = 'AIzaSyBWSm1p0enwojA4l7iDFxy9llXbwz4rrXE';
   const fullUrl = `${baseURL}${url}&key=${key}`;
@@ -28,6 +30,15 @@ const useYoutubeV3 = (url, isList) => {
     try {
       const res = await fetch(fullUrl);
       const data = await res.json();
+      if (data.error) {
+        const errorMessage =
+          (data.error && data.error.message) || 'An error occurred, try again later';
+        dispatch({
+          action: 'SET_ERROR',
+          payload: errorMessage,
+        });
+        throw new Error(errorMessage);
+      }
       const parsedData = isList ? parseVideos(data) : parseVideo(data);
       setResponse(parsedData);
       setIsLoading(false);
