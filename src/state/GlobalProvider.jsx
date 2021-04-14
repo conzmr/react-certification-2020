@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { useLocation } from 'react-router-dom';
-
+import queryString from 'query-string';
 import reducer from "./GlobalReducer";
-
 import {themes} from '../utils/constants';
 
 const getDefaultTheme = () => {
@@ -32,7 +31,6 @@ function useGlobalContext() {
 }
 
 function GlobalProvider({ children }) {
-  const queryString = require('query-string');
   const { search } = useLocation();
   const searchTerm = queryString.parse(search).q;
   const [state, dispatch] = useReducer(reducer, {...initialState, searchTerm});
