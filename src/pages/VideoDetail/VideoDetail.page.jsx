@@ -17,7 +17,7 @@ function VideoDetail() {
   const { title, tags, statistics, publishedAt } = detail;
   const { dislikeCount, likeCount, viewCount, favoriteCount } = statistics;
 
-  const detailTags = tags.map((tag) => {
+  const detailTags = tags && tags.map((tag) => {
     return (
       <span className="inline-block bg-gray-100 dark:bg-black-100 rounded-full px-3 py-1 text-xs font-normal text-gray-700 dark:text-black-50 mr-2 mb-2">
         #{tag}
@@ -35,7 +35,7 @@ function VideoDetail() {
         <div className="aspect-w-16 aspect-h-9">
           <iframe
             title={`video#${id}`}
-            src={`https://www.youtube.com/embed/${id}?controls=0&autoplay=1`}
+            src={`https://www.youtube.com/embed/${id}?&autoplay=1`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
