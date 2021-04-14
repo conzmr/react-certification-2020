@@ -10,7 +10,7 @@ import VideoDetail from '../../pages/VideoDetail';
 import Private from '../Private';
 import Fortune from '../Fortune';
 import Layout from '../Layout';
-import GlobalProvider from '../../state/GlobalProvider';;
+import GlobalProvider from '../../state/GlobalProvider';
 
 function App() {
   return (

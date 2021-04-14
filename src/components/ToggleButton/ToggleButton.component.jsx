@@ -1,17 +1,16 @@
 import React from 'react';
 import { useGlobalContext } from '../../state/GlobalProvider';
-import {themes} from '../../utils/constants';
-
+import { themes } from '../../utils/constants';
 
 const ToggleButton = () => {
-  const {state, dispatch} = useGlobalContext();
+  const { state, dispatch } = useGlobalContext();
 
   const toggleTheme = () => {
-    let newTheme = state.theme === themes.dark ? themes.ligth : themes.dark;
+    const newTheme = state.theme === themes.dark ? themes.ligth : themes.dark;
     window.localStorage.setItem('theme', newTheme);
-     dispatch({
+    dispatch({
       type: 'SET_THEME',
-      payload: newTheme
+      payload: newTheme,
     });
   };
 

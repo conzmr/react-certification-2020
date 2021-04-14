@@ -17,13 +17,15 @@ function VideoDetail() {
   const { title, tags, statistics, publishedAt } = detail;
   const { dislikeCount, likeCount, viewCount, favoriteCount } = statistics;
 
-  const detailTags = tags && tags.map((tag) => {
-    return (
-      <span className="inline-block bg-gray-100 dark:bg-black-100 rounded-full px-3 py-1 text-xs font-normal text-gray-700 dark:text-black-50 mr-2 mb-2">
-        #{tag}
-      </span>
-    );
-  });
+  const detailTags =
+    tags &&
+    tags.map((tag) => {
+      return (
+        <span className="inline-block bg-gray-100 dark:bg-black-100 rounded-full px-3 py-1 text-xs font-normal text-gray-700 dark:text-black-50 mr-2 mb-2">
+          #{tag}
+        </span>
+      );
+    });
 
   const formatNumber = (numberS) => {
     return Number(numberS).toLocaleString();

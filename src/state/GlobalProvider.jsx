@@ -1,24 +1,24 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import reducer from "./GlobalReducer";
-import {themes} from '../utils/constants';
+import reducer from './GlobalReducer';
+import { themes } from '../utils/constants';
 
 const getDefaultTheme = () => {
   const localTheme = window.localStorage.getItem('theme');
   const preferedTheme =
-      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? themes.dark
-        : themes.light;
-    if (localTheme) return localTheme;
-    else return preferedTheme;
-}
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? themes.dark
+      : themes.light;
+  if (localTheme) return localTheme;
+  return preferedTheme;
+};
 
 const initialState = {
   theme: getDefaultTheme(),
   searchTerm: '',
-  error: null
-}
+  error: null,
+};
 
 const GlobalContext = createContext();
 
@@ -33,7 +33,7 @@ function useGlobalContext() {
 function GlobalProvider({ children }) {
   const { search } = useLocation();
   const searchTerm = queryString.parse(search).q;
-  const [state, dispatch] = useReducer(reducer, {...initialState, searchTerm});
+  const [state, dispatch] = useReducer(reducer, { ...initialState, searchTerm });
 
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>
