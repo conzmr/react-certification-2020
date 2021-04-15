@@ -32,7 +32,7 @@ function SearchBar() {
         type="search"
         name="search"
         placeholder="Search..."
-        value={keyWord}
+        value={keyWord || ''}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
