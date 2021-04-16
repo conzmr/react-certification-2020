@@ -9,8 +9,8 @@ function HomePage() {
   const url = state.searchTerm
     ? `search?q=${encodeURIComponent(
         state.searchTerm
-      )}&part=snippet&type=video&maxResults=25`
-    : 'videos?chart=mostPopular&part=snippet&type=video&maxResults=25';
+      )}&part=snippet&type=video&maxResults=28`
+    : 'videos?chart=mostPopular&part=snippet&type=video&maxResults=28';
   const [isLoading, videos] = useYoutubeV3(url, true);
 
   return (
