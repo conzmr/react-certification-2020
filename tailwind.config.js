@@ -9,12 +9,12 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     colors: {
-      // black: '#000',
       ...colors,
       black: {
         50: '#909090',
         100: '#303030',
         900: '#212121',
+        default: '#000',
       },
       darkGray: '#212121',
       mediumGray: '#303030',
