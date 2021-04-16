@@ -13,18 +13,12 @@ import {
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
-const CardImg = styled(CardMedia)`
-  height: 0;
-  padding-top: 56.25%;
-`;
-
 const Title = styled.h4`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin: 5px 0;
 `;
 
 const Actions = styled.div`
@@ -36,9 +30,7 @@ const Actions = styled.div`
   right: 0;
 `;
 
-const StyledCard = styled(Card)`
-  width: 320px;
-  margin: 0 15px 20px;
+const StyledCard = styled.div`
   position: relative;
   &:hover ${Actions} {
     display: flex;
@@ -50,9 +42,6 @@ const ActionButton = styled(IconButton)`
   color: white;
 `;
 
-const StyledCardHeader = styled(CardHeader)`
-  padding: 6px;
-`;
 
 function VideoCard({ id, title, channel, publishedAt, img, direction }) {
   const history = useHistory();
@@ -61,50 +50,49 @@ function VideoCard({ id, title, channel, publishedAt, img, direction }) {
     history.push(`/video/${id}`);
   };
 
-  const hCard = (
-    <div
-      className="flex flex-row h-34 cursor-pointer mb-2"
+  const isHorizontal = direction === 'horizontal';
+
+  const favoriteIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+    </svg>
+  );
+
+  const addToFavorite = () => {
+    console.log("ADDING TO FAVORITES");
+  }
+
+  return (
+    <StyledCard
+      className={`flex ${isHorizontal ? 'flex-row h-34 mb-2' : 'flex-col w-80 mb-4'} cursor-pointer`}
       role="button"
       onClick={goToDetail}
       onKeyDown={goToDetail}
       tabIndex={0}
     >
-      <div className="bg-black mr-2" style={{ minWidth: '168px' }}>
-        <img width="168" src={img} alt="video-thumbnail" />
+      <div className={isHorizontal ? "bg-black mr-2" : ''} style={{ minWidth: '168px' }}>
+        <img width={isHorizontal ? '168' : '360'} src={img} alt="video-thumbnail" />
       </div>
       <div className="flex flex-col flex-grow p-1">
-        <p className="text-sm font-medium text-gray-500 dark:text-white">{title}</p>
+        <Title className={`text-sm font-medium text-black dark:text-white ${isHorizontal ? '' : 'my-1.5'}`}>{title}</Title>
         <p className="text-xs text-gray-500 dark:text-white">{channel}</p>
         <p className="text-xs text-gray-500 dark:text-white">
           {moment(publishedAt).fromNow()}
         </p>
       </div>
-    </div>
-  );
-
-  if (direction === 'horizontal') return hCard;
-
-  return (
-    <StyledCard onClick={goToDetail}>
-      <CardImg image={img} />
-      <CardContent>
-        <Title>{title}</Title>
-        <StyledCardHeader
-          avatar={<Avatar aria-label="channel">{channel.charAt(0)}</Avatar>}
-          title={channel}
-          subheader={moment(publishedAt).fromNow()}
-        />
-      </CardContent>
-      <Actions disableSpacing>
-        <ActionButton aria-label="Add to favorites">
-          <FavoriteIcon />
-        </ActionButton>
-        <ActionButton aria-label="Share">
-          <ShareIcon />
-        </ActionButton>
+      <Actions>
+        <button
+          type="button"
+          onClick={addToFavorite}
+          className="h-9 w-9 flex justify-center items-center focus:outline-none text-white bg-black-default bg-opacity-75 "
+        >
+          {favoriteIcon}
+        </button>
       </Actions>
     </StyledCard>
   );
 }
 
 export default VideoCard;
+
+
