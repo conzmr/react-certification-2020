@@ -3,6 +3,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import ToggleButton from './ToggleButton.component';
 import GlobalProvider from '../../state/GlobalProvider';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    pathname: 'localhost:3000/testPath',
+  }),
+}));
+
 describe('ToggleButton', () => {
   beforeEach(() => {
     render(
