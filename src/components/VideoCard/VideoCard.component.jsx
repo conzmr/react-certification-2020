@@ -51,9 +51,9 @@ function VideoCard({ id, title, channel, publishedAt, img, direction }) {
     </svg>
   );
 
-  const addToFavorite = e => {
+  const addToFavorite = (e) => {
     e.stopPropagation();
-    console.log('ADDING TO FAVORITES'); 
+    console.log('ADDING TO FAVORITES');
   };
 
   return (

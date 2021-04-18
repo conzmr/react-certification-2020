@@ -1,11 +1,17 @@
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
-import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Layout from './Layout.component';
 import NavBar from '../NavBar';
 import { useAuth } from '../../providers/Auth';
+import { useGlobalContext } from '../../state/GlobalProvider';
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    pathname: 'localhost:3000/example/path',
+  }),
+}));
 
 jest.mock('../../providers/Auth', () => ({
   useAuth: jest.fn(),
@@ -15,21 +21,41 @@ useAuth.mockImplementation(() => {
   return { authenticated: false, logout: jest.fn() };
 });
 
+jest.mock('../../state/GlobalProvider', () => ({
+  useGlobalContext: jest.fn(),
+}));
+
 configure({ adapter: new Adapter() });
 
+useGlobalContext.mockImplementation(() => {
+  return { state: {}, dispatch: jest.fn() };
+});
+
 describe('Layout', () => {
-  it('renders loading view when theme has not been loaded', () => {
-    const { container } = render(
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    );
-    expect(container).toHaveTextContent('Sign in');
+  it('renders NavBar and its children', () => {
+    const children = <div>Hello</div>;
+    const wrapper = shallow(<Layout>{children}</Layout>);
+    expect(wrapper.containsMatchingElement(<NavBar />)).toEqual(true);
   });
-  // it('renders navigation bar when theme is loaded', async() => {
-  //   const wrapper = shallow(<Layout/>);
-  //   console.log(wrapper.debug())
-  //   await new Promise((r) => setTimeout(r, 3000));
-  //   expect(wrapper.containsMatchingElement(<NavBar/>)).toEqual(true);
-  // });
+
+  describe('Theme', () => {
+    let wrapper;
+    beforeEach(() => {
+      useGlobalContext.mockImplementationOnce(() => {
+        return { state: { theme: 'ligth' }, dispatch: jest.fn() };
+      });
+      useGlobalContext.mockImplementationOnce(() => {
+        return { state: { theme: 'dark' }, dispatch: jest.fn() };
+      });
+      wrapper = shallow(<Layout />);
+    });
+
+    it('does not has dark className when provider theme is ligth', () => {
+      expect(wrapper.find('div').first().hasClass('dark')).toEqual(false);
+    });
+
+    it('has dark className when provider theme is dark', () => {
+      expect(wrapper.find('div').first().hasClass('dark')).toEqual(true);
+    });
+  });
 });
