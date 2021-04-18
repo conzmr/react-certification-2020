@@ -8,7 +8,6 @@ import NotFound from '../../pages/NotFound';
 import SecretPage from '../../pages/Secret';
 import VideoDetail from '../../pages/VideoDetail';
 import Private from '../Private';
-import Fortune from '../Fortune';
 import Layout from '../Layout';
 import GlobalProvider from '../../state/GlobalProvider';
 
@@ -36,9 +35,8 @@ function App() {
               </Private>
               <Route path="*">
                 <NotFound />
-              </Route>
+              </Route>      
             </Switch>
-            <Fortune />
           </Layout>
         </GlobalProvider>
       </AuthProvider>
