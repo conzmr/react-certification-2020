@@ -1,12 +1,8 @@
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { mount, configure, shallow } from 'enzyme';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import SearchBar from './SearchBar.component';
 import GlobalProvider from '../../state/GlobalProvider';
-
-configure({ adapter: new Adapter() });
 
 const mockHistoryPush = jest.fn();
 
