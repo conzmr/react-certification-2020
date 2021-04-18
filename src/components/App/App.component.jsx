@@ -35,7 +35,7 @@ function App() {
               </Private>
               <Route path="*">
                 <NotFound />
-              </Route>      
+              </Route>
             </Switch>
           </Layout>
         </GlobalProvider>

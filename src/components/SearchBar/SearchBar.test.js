@@ -14,14 +14,6 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('SearchBar', () => {
-  // it('renders correctly', () => {
-  //   const { queryByPlaceholderText } = render(<GlobalProvider>
-  //              <SearchBar/>
-  //            </GlobalProvider>)
-  //   const searchInput = queryByPlaceholderText('Search...')
-  //   fireEvent.change(searchInput, { target: { value: 'test' } })
-  //   expect(searchInput.value).toBe('test')
-  // })
   it('updates on change', async () => {
     const { queryByPlaceholderText } = render(
       <BrowserRouter>
@@ -34,6 +26,21 @@ describe('SearchBar', () => {
     fireEvent.change(searchInput, { target: { value: 'test' } });
 
     await waitFor(() => expect(searchInput.value).toBe('test'));
+  });
+
+  it('submits a search when key enter is pressed', async () => {
+    const { getByRole } = render(
+      <BrowserRouter>
+        <GlobalProvider>
+          <SearchBar />
+        </GlobalProvider>
+      </BrowserRouter>
+    );
+    fireEvent.keyDown(getByRole('searchbox'), {
+      key: 'Enter',
+      charCode: 13,
+    });
+    await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/'));
   });
 
   it('redirects to home URL on search submit when there is no search term', async () => {
