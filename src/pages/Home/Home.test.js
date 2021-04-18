@@ -1,12 +1,11 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Home from './Home.page';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
 import VideosList from '../../components/VideosList';
-import GlobalProvider, { useGlobalContext } from '../../state/GlobalProvider';
+import { useGlobalContext } from '../../state/GlobalProvider';
 
 configure({ adapter: new Adapter() });
 
