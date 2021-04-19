@@ -18,6 +18,8 @@ const initialState = {
   theme: getDefaultTheme(),
   searchTerm: '',
   error: null,
+  sessionData: null,
+  showLoginModal: false,
 };
 
 const GlobalContext = createContext();

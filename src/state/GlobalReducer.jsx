@@ -15,6 +15,16 @@ const GlobalReducer = (state, action) => {
         ...state,
         error: action.payload,
       };
+    case 'OPEN_LOGIN_MODAL':
+      return {
+        ...state,
+        showLoginModal: true,
+      };
+    case 'CLOSE_LOGIN_MODAL':
+      return {
+        ...state,
+        showLoginModal: false,
+      };
     default:
       return state;
   }
