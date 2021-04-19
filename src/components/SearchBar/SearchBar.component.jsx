@@ -28,7 +28,7 @@ function SearchBar() {
   return (
     <div className="relative mx-auto text-gray-600">
       <input
-        className="border-1 border-gray-300 bg-white dark:bg-black-900 dark:border-black-100 h-10 px-5 pr-10 rounded-lg text-sm focus:outline-none"
+        className="border-1 border-gray-300 bg-white dark:bg-mediumGray dark:border-black-100 h-10 px-5 pr-10 rounded-3xl text-sm focus:outline-none"
         type="search"
         name="search"
         placeholder="Search..."
