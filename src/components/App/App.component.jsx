@@ -24,9 +24,9 @@ function App() {
               <Route exact path="/results">
                 <HomePage />
               </Route>
-              <Route exact path="/login">
+              {/* <Route exact path="/login">
                 <LoginPage />
-              </Route>
+              </Route> */}
               <Route exact path="/video/:id">
                 <VideoDetail />
               </Route>
@@ -38,6 +38,7 @@ function App() {
               </Route>
             </Switch>
           </Layout>
+          <LoginPage />
         </GlobalProvider>
       </AuthProvider>
     </BrowserRouter>
