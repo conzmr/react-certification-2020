@@ -10,7 +10,8 @@ const initialState = {
   error: null,
   sessionData: null,
   showLoginModal: false,
-  authenticated: false
+  authenticated: false,
+  favorites: {},
 };
 
 const GlobalContext = createContext();
@@ -29,8 +30,8 @@ function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, { ...initialState, searchTerm });
 
   useEffect(() => {
-   // if (searchTerm) dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
-    dispatch({ type: "LOAD_FROM_STORAGE" });
+    // if (searchTerm) dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
+    dispatch({ type: 'LOAD_FROM_STORAGE' });
   }, []);
 
   return (

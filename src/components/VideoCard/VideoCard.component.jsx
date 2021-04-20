@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
+import { useGlobalContext } from '../../state/GlobalProvider';
+
+function useFavorite(id) {
+  const { state, dispatch } = useGlobalContext();
+  const [isFavorite, setFavorite] = useState(false);
+
+  useEffect(() => {
+    setFavorite(state.favorites[id]);
+  }, [state.favorites, id]);
+
+  const addFavorite = () => {
+    dispatch({ type: 'ADD_FAVORITE', payload: id });
+    setFavorite(true);
+  };
+
+  const removeFavorite = () => {
+    dispatch({ type: 'DELETE_FAVORITE', payload: id });
+    setFavorite(false);
+  };
+
+  const toggleFavorite = (e) => {
+    e.stopPropagation();
+    return isFavorite ? removeFavorite() : addFavorite();
+  };
+
+  return [isFavorite, toggleFavorite];
+}
 
 const Title = styled.h4`
   overflow: hidden;
@@ -29,6 +56,8 @@ const StyledCard = styled.div`
 
 function VideoCard({ id, title, channel, publishedAt, img, direction }) {
   const history = useHistory();
+  const { state } = useGlobalContext();
+  const [isFavorite, toggleFavorite] = useFavorite(id);
 
   const goToDetail = () => {
     history.push(`/video/${id}`);
@@ -51,10 +80,19 @@ function VideoCard({ id, title, channel, publishedAt, img, direction }) {
     </svg>
   );
 
-  const addToFavorite = (e) => {
-    e.stopPropagation();
-    console.log('ADDING TO FAVORITES');
-  };
+  const actions = state.authenticated ? (
+    <Actions>
+      <button
+        type="button"
+        onClick={toggleFavorite}
+        className={`h-9 w-9 flex justify-center items-center focus:outline-none ${
+          isFavorite ? 'text-red-500' : 'text-white'
+        } bg-black-default bg-opacity-75 `}
+      >
+        {favoriteIcon}
+      </button>
+    </Actions>
+  ) : null;
 
   return (
     <StyledCard
@@ -82,15 +120,7 @@ function VideoCard({ id, title, channel, publishedAt, img, direction }) {
           {moment(publishedAt).fromNow()}
         </p>
       </div>
-      <Actions>
-        <button
-          type="button"
-          onClick={addToFavorite}
-          className="h-9 w-9 flex justify-center items-center focus:outline-none text-white bg-black-default bg-opacity-75 "
-        >
-          {favoriteIcon}
-        </button>
-      </Actions>
+      {actions}
     </StyledCard>
   );
 }

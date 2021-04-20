@@ -18,10 +18,10 @@ const GlobalReducer = (state, action) => {
       storage.set('authenticated', isAuth);
       return {
         ...state,
-        authenticated: isAuth
+        authenticated: isAuth,
       };
     }
-    case "LOAD_FROM_STORAGE": {
+    case 'LOAD_FROM_STORAGE': {
       const getPreferedTheme = () => {
         const preferedTheme =
           window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -29,14 +29,14 @@ const GlobalReducer = (state, action) => {
             : themes.light;
         return preferedTheme;
       };
-      const favorites = storage.get('favorites') || [];
+      const favorites = storage.get('favorites') || {};
       const authenticated = storage.get('authenticated') || false;
       const theme = storage.get('theme') || getPreferedTheme();
       return {
         ...state,
         favorites,
         authenticated,
-        theme
+        theme,
       };
     }
     case 'SET_ERROR':
@@ -54,6 +54,24 @@ const GlobalReducer = (state, action) => {
         ...state,
         showLoginModal: false,
       };
+    case 'ADD_FAVORITE': {
+      const { favorites } = state;
+      favorites[action.payload] = action.payload;
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      return {
+        ...state,
+        favorites,
+      };
+    }
+    case 'DELETE_FAVORITE': {
+      const { favorites } = state;
+      delete favorites[action.payload];
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      return {
+        ...state,
+        favorites,
+      };
+    }
     default:
       return state;
   }
