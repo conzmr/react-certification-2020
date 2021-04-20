@@ -3,7 +3,6 @@ import AuthMenu from '../AuthMenu';
 import SearchBar from '../SearchBar';
 import ToggleButton from '../ToggleButton';
 import Logo from '../Logo';
-import { ReactComponent as ReactLogo } from '../../assets/logoText.svg';
 
 function NavBar() {
   return (

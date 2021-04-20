@@ -1,16 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../providers/Auth';
 import { useGlobalContext } from '../../state/GlobalProvider';
 
 function AuthMenu() {
   const history = useHistory();
-  const { authenticated, logout } = useAuth();
-  const { dispatch } = useGlobalContext();
+  const { state, dispatch } = useGlobalContext();
 
   function deAuthenticate(event) {
     event.preventDefault();
-    logout();
+    dispatch({ type: 'SET_USER_AUTHENTICATED', payload: false });
     history.push('/');
   }
 
@@ -19,7 +17,7 @@ function AuthMenu() {
     dispatch({ type: 'OPEN_LOGIN_MODAL' });
   };
 
-  const buttonConfig = authenticated
+  const buttonConfig = state.authenticated
     ? {
         title: 'Log out',
         onClick: deAuthenticate,

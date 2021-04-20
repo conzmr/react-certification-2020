@@ -3,7 +3,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
 import Layout from './Layout.component';
 import NavBar from '../NavBar';
-import { useAuth } from '../../providers/Auth';
 import { useGlobalContext } from '../../state/GlobalProvider';
 
 jest.mock('react-router-dom', () => ({
@@ -12,14 +11,6 @@ jest.mock('react-router-dom', () => ({
     pathname: 'localhost:3000/example/path',
   }),
 }));
-
-jest.mock('../../providers/Auth', () => ({
-  useAuth: jest.fn(),
-}));
-
-useAuth.mockImplementation(() => {
-  return { authenticated: false, logout: jest.fn() };
-});
 
 jest.mock('../../state/GlobalProvider', () => ({
   useGlobalContext: jest.fn(),

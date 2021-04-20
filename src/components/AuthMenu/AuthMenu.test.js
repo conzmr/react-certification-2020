@@ -2,17 +2,23 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import AuthMenu from './AuthMenu.component';
-import { useAuth } from '../../providers/Auth';
+import { useGlobalContext } from '../../state/GlobalProvider';
 
-jest.mock('../../providers/Auth', () => ({
-  useAuth: jest.fn(),
+jest.mock('../../state/GlobalProvider', () => ({
+  useGlobalContext: jest.fn(),
 }));
 
 describe('AuthMenu', () => {
-  it('renders login button if user is not authenticated', () => {
-    useAuth.mockImplementation(() => {
-      return { authenticated: false, logout: jest.fn() };
+  beforeEach(() => {
+    useGlobalContext.mockImplementationOnce(() => {
+      return { state: { authenticated: false }, dispatch: jest.fn() };
     });
+    useGlobalContext.mockImplementationOnce(() => {
+      return { state: { authenticated: true }, dispatch: jest.fn() };
+    });
+  });
+
+  it('renders login button if user is not authenticated', () => {
     const { container } = render(
       <BrowserRouter>
         <AuthMenu />
@@ -22,9 +28,6 @@ describe('AuthMenu', () => {
   });
 
   it('renders list menu if user is authenticated', () => {
-    useAuth.mockImplementation(() => {
-      return { authenticated: true, logout: jest.fn() };
-    });
     const { container } = render(
       <BrowserRouter>
         <AuthMenu />

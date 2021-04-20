@@ -1,12 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../../providers/Auth';
 import { useGlobalContext } from '../../state/GlobalProvider';
 import Modal from '../../components/Modal';
 import Logo from '../../components/Logo';
 
 function LoginPage() {
-  const { login } = useAuth();
   const { state, dispatch } = useGlobalContext();
   const history = useHistory();
 
@@ -17,7 +15,7 @@ function LoginPage() {
   function authenticate(event) {
     close();
     event.preventDefault();
-    login();
+    dispatch({ type: 'SET_USER_AUTHENTICATED', payload: true });
     history.push('/secret');
   }
 
