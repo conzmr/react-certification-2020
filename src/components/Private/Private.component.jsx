@@ -7,7 +7,10 @@ function Private({ children, ...rest }) {
   const { state } = useGlobalContext();
 
   return (
-    <Route {...rest} render={() => (state.authenticated ? children : <Redirect to="/" />)} />
+    <Route
+      {...rest}
+      render={() => (state.authenticated ? children : <Redirect to="/" />)}
+    />
   );
 }
 
