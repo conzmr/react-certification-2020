@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import uuid from 'react-uuid';
 import VideosList from '../../components/VideosList';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
-import uuid from 'react-uuid';
 
 function VideoDetail() {
   const { id } = useParams();
@@ -22,7 +22,10 @@ function VideoDetail() {
     tags &&
     tags.map((tag) => {
       return (
-        <span key={uuid()} className="inline-block bg-gray-100 dark:bg-black-100 rounded-full px-3 py-1 text-xs font-normal text-gray-700 dark:text-black-50 mr-2 mb-2">
+        <span
+          key={uuid()}
+          className="inline-block bg-gray-100 dark:bg-black-100 rounded-full px-3 py-1 text-xs font-normal text-gray-700 dark:text-black-50 mr-2 mb-2"
+        >
           #{tag}
         </span>
       );

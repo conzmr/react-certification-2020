@@ -1,10 +1,10 @@
 import React from 'react';
 import VideoCard from '../VideoCard';
 import EmptyState from './EmptyState';
-import LoadingOverlay from '../LoadingOverlay';
+import Spinner from '../Spinner';
 
 function VideosList({ isLoading, videos, cardDirection }) {
-  if (isLoading) return <LoadingOverlay />;
+  if (isLoading) return <Spinner />;
   return (
     <>
       {videos && videos.length ? (
