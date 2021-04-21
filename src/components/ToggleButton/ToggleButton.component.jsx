@@ -6,8 +6,7 @@ const ToggleButton = () => {
   const { state, dispatch } = useGlobalContext();
 
   const toggleTheme = () => {
-    const newTheme = state.theme === themes.dark ? themes.ligth : themes.dark;
-    window.localStorage.setItem('theme', newTheme);
+    const newTheme = state.theme === themes.dark ? themes.light : themes.dark;
     dispatch({
       type: 'SET_THEME',
       payload: newTheme,

@@ -8,11 +8,14 @@ const GlobalReducer = (state, action) => {
         ...state,
         searchTerm: action.payload,
       };
-    case 'SET_THEME':
+    case 'SET_THEME': {
+      const theme = themes[action.payload];
+      localStorage.setItem('theme', JSON.stringify(theme));
       return {
         ...state,
-        theme: action.payload,
+        theme,
       };
+    }
     case 'SET_USER_AUTHENTICATED': {
       const isAuth = action.payload;
       storage.set('authenticated', isAuth);
