@@ -11,7 +11,7 @@ export default function SideNav() {
     dispatch({ type: 'SET_USER_AUTHENTICATED', payload: false });
     history.push('/');
   };
-  
+
   const favoritesLink = !state.authenticated ? null : (
     <li className="hover:bg-gray-100 dark:hover:bg-black-100">
       <Link
