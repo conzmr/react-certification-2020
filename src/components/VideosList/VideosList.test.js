@@ -4,6 +4,7 @@ import { shallow, configure } from 'enzyme';
 import VideosList from './VideosList.component';
 import EmptyState from './EmptyState';
 import VideoCard from '../VideoCard';
+import Spinner from '../Spinner';
 import videos from '../__mocks__/youtube-videos-mock.json';
 
 configure({ adapter: new Adapter() });
@@ -22,5 +23,10 @@ describe('VideosList', () => {
   it('renders only video cards with video information', () => {
     const wrapper = shallow(<VideosList videos={videos.items} />);
     expect(wrapper.find(VideoCard).length).toEqual(videos.items.length);
+  });
+
+  it('renders spinner when isLoading prop equals true', () => {
+    const wrapper = shallow(<VideosList isLoading />);
+    expect(wrapper.containsMatchingElement(<Spinner />)).toEqual(true);
   });
 });
