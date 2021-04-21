@@ -13,17 +13,16 @@ useGlobalContext.mockImplementation(() => {
 });
 
 describe('SideNav', () => {
-  it('does renders home and favorites buttons', () => {
+  it('renders home link', () => {
     render(
       <BrowserRouter>
         <SideNav />
       </BrowserRouter>
     );
     expect(screen.getByTestId('home-link')).toHaveAttribute('href', '/');
-    expect(screen.getByTestId('favorites-link')).toHaveAttribute('href', '/favorites');
   });
 
-  it('does not render logout button if user is not authenticated', () => {
+  it('does not render favorites or logout button if user is not authenticated', () => {
     const { queryByTestId } = render(
       <BrowserRouter>
         <SideNav />
@@ -32,7 +31,7 @@ describe('SideNav', () => {
     expect(queryByTestId('logout-button')).toBeNull();
   });
 
-  it('renders logout button if user is authenticated', () => {
+  it('renders favorites and logout button if user is authenticated', () => {
     useGlobalContext.mockImplementationOnce(() => {
       return { state: { authenticated: true }, dispatch: jest.fn() };
     });
@@ -41,6 +40,7 @@ describe('SideNav', () => {
         <SideNav />
       </BrowserRouter>
     );
+    expect(screen.getByTestId('favorites-link')).toHaveAttribute('href', '/favorites');
     expect(screen.getByTestId('logout-button')).toBeTruthy();
   });
 });

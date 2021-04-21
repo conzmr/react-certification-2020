@@ -11,6 +11,32 @@ export default function SideNav() {
     dispatch({ type: 'SET_USER_AUTHENTICATED', payload: false });
     history.push('/');
   };
+  
+  const favoritesLink = !state.authenticated ? null : (
+    <li className="hover:bg-gray-100 dark:hover:bg-black-100">
+      <Link
+        data-testid="favorites-link"
+        to="/favorites"
+        className="h-16 px-6 flex flex justify-center items-center w-full
+      focus:text-orange-500"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+      </Link>
+    </li>
+  );
 
   const logoutButton = !state.authenticated ? null : (
     <button
@@ -64,29 +90,7 @@ export default function SideNav() {
           </Link>
         </li>
 
-        <li className="hover:bg-gray-100 dark:hover:bg-black-100">
-          <Link
-            data-testid="favorites-link"
-            to="/favorites"
-            className="h-16 px-6 flex flex justify-center items-center w-full
-					focus:text-orange-500"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
-            </svg>
-          </Link>
-        </li>
+        {favoritesLink}
       </ul>
 
       <div className="mt-auto h-16 flex items-center w-full">{logoutButton}</div>
