@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../state/GlobalProvider';
-import { useHistory } from 'react-router-dom';
 
 export default function SideNav() {
   const history = useHistory();
@@ -11,10 +10,9 @@ export default function SideNav() {
     event.preventDefault();
     dispatch({ type: 'SET_USER_AUTHENTICATED', payload: false });
     history.push('/');
-  }
+  };
 
-  const logoutButton = (
-    !state.authenticated ? null : 
+  const logoutButton = !state.authenticated ? null : (
     <button
       onClick={logout}
       data-testid="logout-button"
@@ -38,7 +36,7 @@ export default function SideNav() {
       </svg>
     </button>
   );
-  
+
   return (
     <aside className="flex flex-col items-center bg-gray-50 dark:bg-black-900 text-gray-500 dark:text-white shadow h-full fixed pt-20">
       <ul>
@@ -91,9 +89,7 @@ export default function SideNav() {
         </li>
       </ul>
 
-      <div className="mt-auto h-16 flex items-center w-full">
-        {logoutButton}
-      </div>
+      <div className="mt-auto h-16 flex items-center w-full">{logoutButton}</div>
     </aside>
   );
 }
