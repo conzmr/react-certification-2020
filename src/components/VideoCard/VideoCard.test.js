@@ -2,6 +2,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import moment from 'moment';
 import VideoCard from './VideoCard.component';
+import { useGlobalContext } from '../../state/GlobalProvider';
+
+jest.mock('../../state/GlobalProvider', () => ({
+  useGlobalContext: jest.fn(),
+}));
+
+useGlobalContext.mockImplementation(() => {
+  return { state: { authenticated: false, favorites: [] }, dispatch: jest.fn() };
+});
 
 const videoMock = {
   img: 'https://i.ytimg.com/vi/nmXMgqjQzls/hqdefault.jpg',
