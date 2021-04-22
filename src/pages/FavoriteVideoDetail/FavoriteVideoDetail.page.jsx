@@ -3,18 +3,13 @@ import { useParams } from 'react-router-dom';
 import VideoDetail from '../../components/VideoDetail';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
 
-function VideoDetailPage() {
+function FavoriteVideoDetail() {
   const { id } = useParams();
   const videoDetailUrl = `videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}`;
   const relatedVideoslUrl = `search?part=snippet&type=video&relatedToVideoId=${id}&format=5&restriction=DE&maxResults=10`;
 
-  const [loadingDetail, detail, videoError] = useYoutubeV3(videoDetailUrl);
-  const [loadingRelatedVideos, relatedVideos, relatedVidError] = useYoutubeV3(
-    relatedVideoslUrl,
-    true
-  );
-
-  if (videoError || relatedVidError) return 'SOMETHING WENT WRONG, TRY AGAIN LATER';
+  const [loadingDetail, detail] = useYoutubeV3(videoDetailUrl);
+  const [loadingRelatedVideos, relatedVideos] = useYoutubeV3(relatedVideoslUrl, true);
 
   return (
     <VideoDetail
@@ -27,4 +22,4 @@ function VideoDetailPage() {
   );
 }
 
-export default VideoDetailPage;
+export default FavoriteVideoDetail;

@@ -30,7 +30,6 @@ function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, { ...initialState, searchTerm });
 
   useEffect(() => {
-    // if (searchTerm) dispatch({type: 'SET_SEARCH_TERM', payload: searchTerm});
     dispatch({ type: 'LOAD_FROM_STORAGE' });
   }, []);
 

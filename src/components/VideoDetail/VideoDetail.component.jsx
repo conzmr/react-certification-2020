@@ -1,21 +1,27 @@
-import React from 'react'
-import VideosList from '../VideosList';
+import React from 'react';
 import moment from 'moment';
 import uuid from 'react-uuid';
-import LoadingOverlay from '../../components/LoadingOverlay';
-import ToggleButton from '../../components/ToggleButton';
+import VideosList from '../VideosList';
+import LoadingOverlay from '../LoadingOverlay';
+import ToggleButton from '../ToggleButton';
 import useFavorite from '../../hooks/useFavorite';
 import { useGlobalContext } from '../../state/GlobalProvider';
 
-export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVideos, loadingDetail}) {
+export default function VideoDetail({
+  id,
+  detail,
+  relatedVideos,
+  loadingRelatedVideos,
+  loadingDetail,
+}) {
   const [isFavorite, toggleFavorite] = useFavorite(id);
-  const {state} = useGlobalContext();
+  const { state } = useGlobalContext();
 
-  if (loadingDetail || loadingRelatedVideos) return <LoadingOverlay/>; 
+  if (loadingDetail || loadingRelatedVideos) return <LoadingOverlay />;
 
   const { title, tags, statistics, publishedAt } = detail;
-  const { dislikeCount, likeCount, viewCount, favoriteCount } = statistics;
-    
+  const { dislikeCount, likeCount, viewCount } = statistics;
+
   const detailTags =
     tags &&
     tags.map((tag) => {
@@ -33,7 +39,8 @@ export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVi
     return Number(numberS).toLocaleString();
   };
 
-  const isFavoriteIcon =  <svg
+  const isFavoriteIcon = (
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="red"
@@ -44,22 +51,25 @@ export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVi
         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
         clipRule="evenodd"
       />
-    </svg>;
+    </svg>
+  );
 
-    const favoriteIcon =  <svg
+  const favoriteIcon = (
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
       className="h-4 w-4 text-gray-500 dark:text-white"
-      >
+    >
       <path
         fillRule="evenodd"
         d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
         clipRule="evenodd"
       />
-      </svg>;
-  
-    return (
+    </svg>
+  );
+
+  return (
     <div className="flex flex-wrap w-full">
       <div className="sm:w-full mb-4 lg:w-2/3 lg:pr-2.5">
         <div className="aspect-w-16 aspect-h-9">
@@ -105,18 +115,17 @@ export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVi
                   {formatNumber(dislikeCount)}
                 </span>
               </div>
-              {
-                state.authenticated ? 
+              {state.authenticated ? (
                 <div className="w-max inline-flex ml-4 items-center">
-                <ToggleButton
-                   className="h-4 w-4 flex 'text-gray-500 dark:text-white"
-                  selected={isFavorite}
-                  icon={favoriteIcon}
-                  selectedIcon={isFavoriteIcon}
-                  onClick={toggleFavorite}
-                />
-              </div> : null
-              }
+                  <ToggleButton
+                    className="h-4 w-4 flex 'text-gray-500 dark:text-white"
+                    selected={isFavorite}
+                    icon={favoriteIcon}
+                    selectedIcon={isFavoriteIcon}
+                    onClick={toggleFavorite}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
