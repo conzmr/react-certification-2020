@@ -38,7 +38,7 @@ function VideoCard({ id, title, channel, publishedAt, img, direction }) {
 
   const goToDetail = () => {
     console.log("pathname", pathname)
-    history.push(pathname == '/favorites' ? `/favorites/${id}` : `/video/${id}`);
+    history.push(pathname === '/favorites' ? `/favorites/${id}` : `/video/${id}`);
   };
 
   const isHorizontal = direction === 'horizontal';
