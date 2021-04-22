@@ -3,32 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../state/GlobalProvider';
-
-function useFavorite(id) {
-  const { state, dispatch } = useGlobalContext();
-  const [isFavorite, setFavorite] = useState(false);
-
-  useEffect(() => {
-    setFavorite(state.favorites[id]);
-  }, [state.favorites, id]);
-
-  const addFavorite = () => {
-    dispatch({ type: 'ADD_FAVORITE', payload: id });
-    setFavorite(true);
-  };
-
-  const removeFavorite = () => {
-    dispatch({ type: 'DELETE_FAVORITE', payload: id });
-    setFavorite(false);
-  };
-
-  const toggleFavorite = (e) => {
-    e.stopPropagation();
-    return isFavorite ? removeFavorite() : addFavorite();
-  };
-
-  return [isFavorite, toggleFavorite];
-}
+import useFavorite from '../../hooks/useFavorite';
 
 const Title = styled.h4`
   overflow: hidden;
