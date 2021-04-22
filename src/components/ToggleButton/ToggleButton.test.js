@@ -1,31 +1,27 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ToggleButton from './ToggleButton.component';
-import GlobalProvider from '../../state/GlobalProvider';
-
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useLocation: () => ({
-    pathname: 'localhost:3000/testPath',
-  }),
-}));
 
 describe('ToggleButton', () => {
-  beforeEach(() => {
-    render(
-      <GlobalProvider>
-        <ToggleButton />
-      </GlobalProvider>
+  it('renders base icon when selected value is false', () => {
+    const { getByTestId } = render(
+      <ToggleButton
+        selected={false}
+        icon={<div data-testid="base-icon" />}
+        selectedIcon={<div data-testid="selected-icon" />}
+      />
     );
+    expect(getByTestId('base-icon')).toBeTruthy();
   });
 
-  it('renders moon icon when theme is ligth', () => {
-    expect(screen.getByTestId('moon-icon')).toBeTruthy();
-  });
-
-  it('shows dark theme button when the toggle theme button is clicked', () => {
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
-    expect(screen.getByTestId('sun-icon')).toBeTruthy();
+  it('renders selected icon when selected value is true', () => {
+    const { getByTestId } = render(
+      <ToggleButton
+        selected
+        icon={<div data-testid="base-icon" />}
+        selectedIcon={<div data-testid="selected-icon" />}
+      />
+    );
+    expect(getByTestId('selected-icon')).toBeTruthy();
   });
 });
