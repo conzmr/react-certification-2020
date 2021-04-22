@@ -18,6 +18,7 @@ const useYoutubeV3 = (url, isList) => {
 
   const parseVideo = (data) => {
     const video = data.items[0];
+    if (!video) throw new Error('Video not found');
     return {
       ...video.snippet,
       statistics: video.statistics,
