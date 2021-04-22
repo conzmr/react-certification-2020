@@ -3,8 +3,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
-import SecretPage from '../../pages/Secret';
+import Favorites from '../../pages/Favorites';
 import VideoDetail from '../../pages/VideoDetail';
+import FavoriteVideoDetail from '../../pages/FavoriteVideoDetail';
 import Private from '../Private';
 import Layout from '../Layout';
 import GlobalProvider from '../../state/GlobalProvider';
@@ -27,8 +28,11 @@ function App() {
             <Route exact path="/video/:id">
               <VideoDetail />
             </Route>
-            <Private exact path="/secret">
-              <SecretPage />
+            <Private exact path="/favorite/:id">
+              <FavoriteVideoDetail />
+            </Private>
+            <Private exact path="/favorites">
+              <Favorites />
             </Private>
             <Route path="*">
               <NotFound />
