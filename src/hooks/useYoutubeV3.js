@@ -28,18 +28,21 @@ const useYoutubeV3 = (url, isList) => {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const res = await fetch(fullUrl);
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      const parsedData = isList ? parseVideos(data) : parseVideo(data);
-      setResponse(parsedData);
+      if (url) {
+        const res = await fetch(fullUrl);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        const parsedData = isList ? parseVideos(data) : parseVideo(data);
+        setResponse(parsedData);
+      }
       setIsLoading(false);
     } catch (e) {
       const errorMessage = e.message || 'An error occurred, try again later';
       setError(errorMessage);
+      setResponse({});
       setIsLoading(false);
     }
-  }, [fullUrl, isList]);
+  }, [url, fullUrl, isList]);
 
   useEffect(() => {
     fetchData();

@@ -19,9 +19,10 @@ afterAll(() => {
 describe('useYoutubeV3', () => {
   it('returns expected initial state', () => {
     const { result } = renderHook(() => useYoutubeV3());
-    const [isLoading, response] = result.current;
-    expect(isLoading).toBe(true);
+    const [isLoading, response, error] = result.current;
+    expect(isLoading).toBe(false);
     expect(response).toBeInstanceOf(Object);
+    expect(error).toBeNull();
   });
 
   it('returns list of videos', async () => {
