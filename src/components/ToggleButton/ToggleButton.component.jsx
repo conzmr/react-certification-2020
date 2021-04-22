@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToggleButton = ({onClick, selected, selectedIcon, icon, className}) => {
+const ToggleButton = ({ onClick, selected, selectedIcon, icon, className }) => {
   return (
     <button
       type="button"
