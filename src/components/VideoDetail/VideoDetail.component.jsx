@@ -3,8 +3,13 @@ import VideosList from '../VideosList';
 import moment from 'moment';
 import uuid from 'react-uuid';
 import LoadingOverlay from '../../components/LoadingOverlay';
+import ToggleButton from '../../components/ToggleButton';
+import useFavorite from '../../hooks/useFavorite';
+import { useGlobalContext } from '../../state/GlobalProvider';
 
 export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVideos, loadingDetail}) {
+  const [isFavorite, toggleFavorite] = useFavorite(id);
+  const {state} = useGlobalContext();
 
   if (loadingDetail || loadingRelatedVideos) return <LoadingOverlay/>; 
 
@@ -27,6 +32,32 @@ export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVi
   const formatNumber = (numberS) => {
     return Number(numberS).toLocaleString();
   };
+
+  const isFavoriteIcon =  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="red"
+      className="h-4 w-4 text-gray-500 dark:text-white"
+    >
+      <path
+        fillRule="evenodd"
+        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+        clipRule="evenodd"
+      />
+    </svg>;
+
+    const favoriteIcon =  <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className="h-4 w-4 text-gray-500 dark:text-white"
+      >
+      <path
+        fillRule="evenodd"
+        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+        clipRule="evenodd"
+      />
+      </svg>;
   
     return (
     <div className="flex flex-wrap w-full">
@@ -74,23 +105,18 @@ export default function VideoDetail({id, detail, relatedVideos, loadingRelatedVi
                   {formatNumber(dislikeCount)}
                 </span>
               </div>
-              <div className="w-max inline-flex ml-4 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="h-4 w-4 text-gray-500 dark:text-white"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span className="text-xs ml-1 antialiased text-gray-500 dark:text-white">
-                  {formatNumber(favoriteCount)}
-                </span>
-              </div>
+              {
+                state.authenticated ? 
+                <div className="w-max inline-flex ml-4 items-center">
+                <ToggleButton
+                   className="h-4 w-4 flex 'text-gray-500 dark:text-white"
+                  selected={isFavorite}
+                  icon={favoriteIcon}
+                  selectedIcon={isFavoriteIcon}
+                  onClick={toggleFavorite}
+                />
+              </div> : null
+              }
             </div>
           </div>
         </div>
