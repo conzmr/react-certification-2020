@@ -5,12 +5,14 @@ import { useGlobalContext } from '../../state/GlobalProvider';
 
 function HomePage() {
   const { state } = useGlobalContext();
-  const url = state.searchTerm
-    ? `search?q=${encodeURIComponent(
-        state.searchTerm
-      )}&part=snippet&type=video&maxResults=28`
-    : 'videos?chart=mostPopular&part=snippet&type=video&maxResults=28';
-  const [isLoading, videos] = useYoutubeV3(url, true);
+  const method = state.searchTerm ? 'search' : 'videos';
+  const params = {
+    ...(state.searchTerm ? { q: state.searchTerm } : { chart: 'mostPopular' }),
+    part: 'snippet',
+    type: 'video',
+    maxResults: 28,
+  };
+  const [isLoading, videos] = useYoutubeV3(method, params, true);
 
   return (
     <section className="flex w-full justify-around items-center flex-wrap">

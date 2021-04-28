@@ -5,7 +5,6 @@ import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import Favorites from '../../pages/Favorites';
 import VideoDetail from '../../pages/VideoDetail';
-import FavoriteVideoDetail from '../../pages/FavoriteVideoDetail';
 import Private from '../Private';
 import Layout from '../Layout';
 import GlobalProvider from '../../state/GlobalProvider';
@@ -29,7 +28,7 @@ function App() {
               <VideoDetail />
             </Route>
             <Private exact path="/favorites/:id">
-              <FavoriteVideoDetail />
+              <VideoDetail />
             </Private>
             <Private exact path="/favorites">
               <Favorites />

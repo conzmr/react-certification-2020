@@ -6,14 +6,13 @@ import { useGlobalContext } from '../../state/GlobalProvider';
 function FavoritesPage() {
   const { state } = useGlobalContext();
   const favorites = Object.keys(state.favorites);
-  const favoriteQuery = favorites.reduce((p, fav) => `${p}id=${fav}&`, '');
-  const url = favoriteQuery.length
-    ? `videos?${favoriteQuery}part=snippet&type=video`
-    : favoriteQuery;
-
-  const [isLoading, videos] = useYoutubeV3(url, true);
-
-  if (state.favorites.length < 1) return 'No favorites videos';
+  const params = favorites.length > 0 && {
+    favorites: Object.keys(state.favorites),
+    part: 'snippet',
+    type: 'video',
+  };
+  const method = favorites.length > 0 ? 'videos' : 'omit';
+  const [isLoading, videos] = useYoutubeV3(method, params, true);
 
   return (
     <section className="flex w-full justify-around items-center flex-wrap">

@@ -4,7 +4,7 @@ import EmptyState from './EmptyState';
 import Spinner from '../Spinner';
 
 function VideosList({ isLoading, videos, cardDirection }) {
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div className="flex w-full justify-center"><Spinner /></div>;
   return (
     <>
       {videos && videos.length ? (

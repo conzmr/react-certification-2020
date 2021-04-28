@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import uuid from 'react-uuid';
-import VideosList from '../VideosList';
 import ToggleButton from '../ToggleButton';
 import useFavorite from '../../hooks/useFavorite';
 import { useGlobalContext } from '../../state/GlobalProvider';
@@ -23,39 +22,7 @@ const FavoriteIcon = (fill = 'currentColor') => {
   );
 };
 
-export default function VideoDetail({
-  id,
-  detail,
-  relatedVideos,
-  loadingRelatedVideos,
-  loadingDetail,
-}) {
-  return (
-    <div className="flex flex-wrap w-full">
-      <div className="sm:w-full mb-4 lg:w-2/3 lg:pr-2.5">
-        <div className="aspect-w-16 aspect-h-9">
-          <iframe
-            title={`video#${id}`}
-            src={`https://www.youtube.com/embed/${id}?&autoplay=1`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
-        <DetailInfo isLoading={loadingDetail} id={id} {...detail} />
-      </div>
-      <div className="sm:w-full lg:w-1/3 mb-4">
-        <VideosList
-          videos={relatedVideos}
-          isLoading={loadingRelatedVideos}
-          cardDirection="horizontal"
-        />
-      </div>
-    </div>
-  );
-}
-
-const DetailInfo = ({ isLoading, id, title, tags, statistics = {}, publishedAt }) => {
+export default function VideoDetailInfo({ isLoading, id, title, tags, statistics = {}, publishedAt }) {
   const [isFavorite, toggleFavorite] = useFavorite(id);
   const { state } = useGlobalContext();
   const { dislikeCount, likeCount, viewCount } = statistics;
