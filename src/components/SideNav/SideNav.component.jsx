@@ -12,6 +12,10 @@ export default function SideNav() {
     history.push('/');
   };
 
+  const clearSearchTerm = () => {
+    dispatch({ type: 'SET_SEARCH_TERM', payload: '' });
+  }
+
   const favoritesLink = !state.authenticated ? null : (
     <li className="hover:bg-gray-100 dark:hover:bg-black-100">
       <Link
@@ -69,6 +73,7 @@ export default function SideNav() {
         <li className="hover:bg-gray-100 dark:hover:bg-black-100">
           <Link
             data-testid="home-link"
+            onClick={clearSearchTerm}
             to="/"
             className="h-16 px-6 flex flex justify-center items-center w-full
 					focus:text-orange-500"
