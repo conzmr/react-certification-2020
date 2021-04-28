@@ -1,9 +1,9 @@
 import React from 'react';
 import { useGlobalContext } from '../../state/GlobalProvider';
-import Modal from '../../components/Modal';
-import Logo from '../../components/Logo';
+import Modal from '../Modal';
+import Logo from '../Logo';
 
-function LoginPage() {
+function LoginModal() {
   const { state, dispatch } = useGlobalContext();
 
   function close() {
@@ -54,4 +54,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginModal;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../state/GlobalProvider';
+import LoginModal from '../LoginModal';
 
 function AuthMenu() {
   const history = useHistory();
@@ -27,6 +28,7 @@ function AuthMenu() {
         onClick: showSignInModal,
       };
   return (
+    <>
     <button
       type="button"
       className="text-base p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-white outline-none focus:outline-none"
@@ -34,6 +36,8 @@ function AuthMenu() {
     >
       {buttonConfig.title}
     </button>
+    <LoginModal/>
+    </>
   );
 }
 

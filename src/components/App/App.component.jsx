@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/Home';
-import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import Favorites from '../../pages/Favorites';
 import VideoDetail from '../../pages/VideoDetail';
@@ -21,9 +20,6 @@ function App() {
             <Route exact path="/results">
               <HomePage />
             </Route>
-            {/* <Route exact path="/login">
-              <LoginPage />
-            </Route> */}
             <Route exact path="/video/:id">
               <VideoDetail />
             </Route>
@@ -38,7 +34,6 @@ function App() {
             </Route>
           </Switch>
         </Layout>
-        <LoginPage />
       </GlobalProvider>
     </BrowserRouter>
   );
