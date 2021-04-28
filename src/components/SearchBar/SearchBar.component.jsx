@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../state/GlobalProvider';
 
@@ -6,6 +6,10 @@ function SearchBar() {
   const { state, dispatch } = useGlobalContext();
   const history = useHistory();
   const [keyWord, setKeyWord] = useState(state.searchTerm);
+
+  useEffect(() => {
+    setKeyWord(state.searchTerm)
+  }, [state.searchTerm]);
 
   const triggerChange = () => {
     dispatch({
