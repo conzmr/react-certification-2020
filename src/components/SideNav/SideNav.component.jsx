@@ -14,7 +14,7 @@ export default function SideNav() {
 
   const clearSearchTerm = () => {
     dispatch({ type: 'SET_SEARCH_TERM', payload: '' });
-  }
+  };
 
   const favoritesLink = !state.authenticated ? null : (
     <li className="hover:bg-gray-100 dark:hover:bg-black-100">

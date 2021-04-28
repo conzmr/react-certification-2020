@@ -8,7 +8,7 @@ function SearchBar() {
   const [keyWord, setKeyWord] = useState(state.searchTerm);
 
   useEffect(() => {
-    setKeyWord(state.searchTerm)
+    setKeyWord(state.searchTerm);
   }, [state.searchTerm]);
 
   const triggerChange = () => {

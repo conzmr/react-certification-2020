@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useGlobalContext } from '../../state/GlobalProvider';
 import useFavorite from '../../hooks/useFavorite';
-import { useLocation } from 'react-router-dom';
 
 const Title = styled.h4`
   overflow: hidden;
@@ -31,13 +30,12 @@ const StyledCard = styled.div`
 `;
 
 function VideoCard({ id, title, channel, publishedAt, img, direction }) {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const history = useHistory();
   const { state } = useGlobalContext();
   const [isFavorite, toggleFavorite] = useFavorite(id);
 
   const goToDetail = () => {
-    console.log("pathname", pathname)
     history.push(pathname === '/favorites' ? `/favorites/${id}` : `/video/${id}`);
   };
 
