@@ -1,17 +1,28 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import reducer from './GlobalReducer';
 import { themes } from '../utils/constants';
+import { storage } from '../utils/storage';
 
-const initialState = {
-  theme: themes.light,
-  searchTerm: '',
-  error: null,
-  sessionData: null,
-  showLoginModal: false,
-  authenticated: false,
-  favorites: {},
+const getInitialState = () => {
+  const getPreferedTheme = () => {
+    const preferedTheme =
+      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? themes.dark
+        : themes.light;
+    return preferedTheme;
+  };
+  const favorites = storage.get('favorites') || {};
+  const authenticated = storage.get('authenticated') || false;
+  const theme = storage.get('theme') || getPreferedTheme();
+  return {
+    searchTerm: '',
+    showLoginModal: false,
+    favorites,
+    authenticated,
+    theme,
+  };
 };
 
 const GlobalContext = createContext();
@@ -25,13 +36,10 @@ function useGlobalContext() {
 }
 
 function GlobalProvider({ children }) {
+  const initialState = getInitialState();
   const { search } = useLocation();
   const searchTerm = queryString.parse(search).q;
   const [state, dispatch] = useReducer(reducer, { ...initialState, searchTerm });
-
-  useEffect(() => {
-    dispatch({ type: 'LOAD_FROM_STORAGE' });
-  }, []);
 
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>

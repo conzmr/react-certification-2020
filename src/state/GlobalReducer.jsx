@@ -24,24 +24,6 @@ const GlobalReducer = (state, action) => {
         authenticated: isAuth,
       };
     }
-    case 'LOAD_FROM_STORAGE': {
-      const getPreferedTheme = () => {
-        const preferedTheme =
-          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? themes.dark
-            : themes.light;
-        return preferedTheme;
-      };
-      const favorites = storage.get('favorites') || {};
-      const authenticated = storage.get('authenticated') || false;
-      const theme = storage.get('theme') || getPreferedTheme();
-      return {
-        ...state,
-        favorites,
-        authenticated,
-        theme,
-      };
-    }
     case 'SET_ERROR':
       return {
         ...state,
