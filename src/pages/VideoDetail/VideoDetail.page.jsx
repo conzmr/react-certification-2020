@@ -1,16 +1,16 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import VideoDetailInfo from '../../components/VideoDetailInfo';
 import VideosList from '../../components/VideosList';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
-import { useLocation } from 'react-router-dom';
+
 import { useGlobalContext } from '../../state/GlobalProvider';
 
 function VideoDetailPage() {
   const { id } = useParams();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const { state } = useGlobalContext();
-  const favorites = Object.keys(state.favorites).filter(i => i !== id);
+  const favorites = Object.keys(state.favorites).filter((i) => i !== id);
   const filterByFavorites = pathname.split('/')[1] === 'favorites';
 
   const searchQueryParams = {
@@ -20,20 +20,22 @@ function VideoDetailPage() {
   const relatedQueryParams = {
     part: 'snippet',
     type: 'video',
-    ...filterByFavorites ? {
-      favorites 
-    } : {
-      relatedToVideoId: id,
-      format: 5,
-      restriction: 'DE',
-      maxResults: 10
-    }
-  }
+    ...(filterByFavorites
+      ? {
+          favorites,
+        }
+      : {
+          relatedToVideoId: id,
+          format: 5,
+          restriction: 'DE',
+          maxResults: 10,
+        }),
+  };
   const [loadingDetail, detail, videoError] = useYoutubeV3('videos', searchQueryParams);
   const getRelatedVidsMethod = () => {
     if (!filterByFavorites) return 'search';
     return favorites.length > 0 ? 'videos' : 'omit';
-  }
+  };
   const [loadingRelatedVideos, relatedVideos, relatedVidError] = useYoutubeV3(
     getRelatedVidsMethod(),
     relatedQueryParams,

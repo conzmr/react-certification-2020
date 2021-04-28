@@ -22,7 +22,14 @@ const FavoriteIcon = (fill = 'currentColor') => {
   );
 };
 
-export default function VideoDetailInfo({ isLoading, id, title, tags, statistics = {}, publishedAt }) {
+export default function VideoDetailInfo({
+  isLoading,
+  id,
+  title,
+  tags,
+  statistics = {},
+  publishedAt,
+}) {
   const [isFavorite, toggleFavorite] = useFavorite(id);
   const { state } = useGlobalContext();
   const { dislikeCount, likeCount, viewCount } = statistics;
@@ -131,4 +138,4 @@ export default function VideoDetailInfo({ isLoading, id, title, tags, statistics
       {detailTags}
     </>
   );
-};
+}
