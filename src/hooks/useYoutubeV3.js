@@ -1,18 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useYoutubeV3 = (url, isList) => {
-  const [response, setResponse] = useState({});
+const useYoutubeV3 = (method, params, isList) => {
+  const { favorites = [], ...queryParams } = params;
+  const favoriteQuery = favorites.reduce((p, fav) => `${p}id=${fav}&`, '');
+  const [response, setResponse] = useState(isList ? [] : {});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const baseURL = 'https://youtube.googleapis.com/youtube/v3/';
   const key = 'AIzaSyBWSm1p0enwojA4l7iDFxy9llXbwz4rrXE';
-  const fullUrl = `${baseURL}${url}&key=${key}`;
+  const searchParams = new URLSearchParams(queryParams);
+  const fullUrl = `${baseURL}${method}?${searchParams}${favoriteQuery}&key=${key}`;
 
   const parseVideos = (data) => {
-    const list = data.items.map((video) => ({
-      ...video.snippet,
-      id: typeof video.id === 'string' ? video.id : video.id.videoId,
-    }));
+    const list = data.items
+      .filter((v) => v.snippet)
+      .map((video) => ({
+        ...video.snippet,
+        id: typeof video.id === 'string' ? video.id : video.id.videoId,
+      }));
     return list;
   };
 
@@ -28,7 +33,7 @@ const useYoutubeV3 = (url, isList) => {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      if (url) {
+      if (method !== 'omit') {
         const res = await fetch(fullUrl);
         const data = await res.json();
         if (data.error) throw new Error(data.error);
@@ -42,7 +47,7 @@ const useYoutubeV3 = (url, isList) => {
       setResponse({});
       setIsLoading(false);
     }
-  }, [url, fullUrl, isList]);
+  }, [method, fullUrl, isList]);
 
   useEffect(() => {
     fetchData();
