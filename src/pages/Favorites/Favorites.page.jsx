@@ -15,8 +15,8 @@ function FavoritesPage() {
   const [isLoading, videos] = useYoutubeV3(method, params, true);
 
   return (
-    <section className="flex w-full justify-around items-center flex-wrap">
-      <VideosList videos={videos} isLoading={isLoading} />
+    <section className="flex w-full justify-around flex-wrap">
+      <VideosList videos={videos} isLoading={isLoading} overlayLoader />
     </section>
   );
 }

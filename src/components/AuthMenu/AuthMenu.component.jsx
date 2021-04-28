@@ -29,14 +29,14 @@ function AuthMenu() {
       };
   return (
     <>
-    <button
-      type="button"
-      className="text-base p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-white outline-none focus:outline-none"
-      onClick={buttonConfig.onClick}
-    >
-      {buttonConfig.title}
-    </button>
-    <LoginModal/>
+      <button
+        type="button"
+        className="text-base p-1 ml-0.5 text-gray-500 hover:text-gray-900 dark:text-white outline-none focus:outline-none"
+        onClick={buttonConfig.onClick}
+      >
+        {buttonConfig.title}
+      </button>
+      <LoginModal />
     </>
   );
 }

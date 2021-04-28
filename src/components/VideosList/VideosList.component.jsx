@@ -2,10 +2,13 @@ import React from 'react';
 import VideoCard from '../VideoCard';
 import EmptyState from './EmptyState';
 import Spinner from '../Spinner';
+import LoadingOverlay from '../LoadingOverlay';
 
-function VideosList({ isLoading, videos, cardDirection }) {
+function VideosList({ isLoading, overlayLoader, videos, cardDirection }) {
   if (isLoading)
-    return (
+    return overlayLoader ? (
+      <LoadingOverlay />
+    ) : (
       <div className="flex w-full justify-center">
         <Spinner />
       </div>

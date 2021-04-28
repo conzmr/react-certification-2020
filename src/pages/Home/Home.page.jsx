@@ -2,6 +2,7 @@ import React from 'react';
 import VideosList from '../../components/VideosList';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
 import { useGlobalContext } from '../../state/GlobalProvider';
+import LoadingOverlay from '../../components/LoadingOverlay';
 
 function HomePage() {
   const { state } = useGlobalContext();
@@ -15,8 +16,8 @@ function HomePage() {
   const [isLoading, videos] = useYoutubeV3(method, params, true);
 
   return (
-    <section className="flex w-full justify-around items-center flex-wrap">
-      <VideosList videos={videos} isLoading={isLoading} />
+    <section className="flex w-full justify-around flex-wrap">
+      <VideosList videos={videos} isLoading={isLoading} overlayLoader />
     </section>
   );
 }
