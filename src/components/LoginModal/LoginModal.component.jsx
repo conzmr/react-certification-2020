@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../../state/GlobalProvider';
 import Modal from '../Modal';
 import Logo from '../Logo';
-import loginApi from './login.api';
+import { login } from './login.api';
 import Spinner from '../Spinner';
 
 function LoginModal() {
@@ -13,6 +13,7 @@ function LoginModal() {
   const [errorMessage, setErrorMessage] = useState('');
 
   function close() {
+    setErrorMessage('');
     dispatch({ type: 'CLOSE_LOGIN_MODAL' });
   }
 
@@ -20,7 +21,7 @@ function LoginModal() {
     event.preventDefault();
     setSigningIn(true);
     try {
-      const loginData = await loginApi(email, password);
+      const loginData = await login(email, password);
       dispatch({ type: 'SET_USER_AUTHENTICATED', payload: loginData });
       close();
     } catch ({ message }) {
