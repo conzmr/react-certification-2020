@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../../state/GlobalProvider';
 import Modal from '../Modal';
 import Logo from '../Logo';
+import loginApi from './login.api';
+import Spinner from '../Spinner';
 
 function LoginModal() {
   const { state, dispatch } = useGlobalContext();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signingIn, setSigningIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function close() {
     dispatch({ type: 'CLOSE_LOGIN_MODAL' });
   }
 
-  function authenticate(event) {
-    close();
+  async function authenticate(event) {
     event.preventDefault();
-    dispatch({ type: 'SET_USER_AUTHENTICATED', payload: true });
+    setSigningIn(true);
+    try {
+      const loginData = await loginApi(email, password);
+      dispatch({ type: 'SET_USER_AUTHENTICATED', payload: loginData });
+      close();
+    } catch ({ message }) {
+      setErrorMessage(message);
+    }
+    setSigningIn(false);
   }
 
   const inputClass =
@@ -31,6 +44,7 @@ function LoginModal() {
               id="username"
               placeholder="Username"
               className={inputClass}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </label>
           <label htmlFor="password" className="w-full">
@@ -40,14 +54,23 @@ function LoginModal() {
               id="password"
               placeholder="Password"
               className={inputClass}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </label>
           <button
             type="submit"
-            className="text-sm bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-3xl w-full"
+            className="h-10 text-sm bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-3xl w-full outline-none focus:outline-none justify-center items-center flex"
           >
-            LOG IN
+            {signingIn ? <Spinner size={4} className="m-0" /> : 'LOG IN'}
           </button>
+
+          <div className="mt-4 h-5">
+            <div className="relative flex justify-center text-sm">
+              <span data-testid="status" className="px-2 text-red-600 font-semibold">
+                {errorMessage}
+              </span>
+            </div>
+          </div>
         </form>
       </section>
     </Modal>
