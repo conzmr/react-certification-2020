@@ -1,0 +1,54 @@
+import React, { createContext, useContext, useReducer } from 'react';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
+import reducer from './GlobalReducer';
+import { themes } from '../utils/constants';
+import { storage } from '../utils/storage';
+
+const getInitialState = () => {
+  const getPreferedTheme = () => {
+    const preferedTheme =
+      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? themes.dark
+        : themes.light;
+    return preferedTheme;
+  };
+  const favorites = storage.get('favorites') || {};
+  const sessionData = storage.get('sessionData') || {};
+  const theme = storage.get('theme') || getPreferedTheme();
+  return {
+    searchTerm: '',
+    showLoginModal: false,
+    favorites,
+    authenticated: Object.keys(sessionData).length > 0,
+    sessionData,
+    theme,
+  };
+};
+
+const GlobalContext = createContext();
+
+function useGlobalContext() {
+  const context = useContext(GlobalContext);
+  if (!context) {
+    throw new Error(`Can't use "useGlobalContext" without a GlobalProvider!`);
+  }
+  return context;
+}
+
+function GlobalProvider({ children }) {
+  const initialState = getInitialState();
+  const { search } = useLocation();
+  const searchTerm = queryString.parse(search).q;
+  const [state, dispatch] = useReducer(reducer, { ...initialState, searchTerm });
+
+  return (
+    <GlobalContext.Provider value={{ state, dispatch }}>
+      {children}
+    </GlobalContext.Provider>
+  );
+}
+
+export { useGlobalContext };
+
+export default GlobalProvider;
