@@ -34,7 +34,6 @@ describe('AuthMenu', () => {
         <AuthMenu />
       </BrowserRouter>
     );
-    console.log(screen.debug());
     expect(container).toHaveTextContent('Log out');
   });
 });

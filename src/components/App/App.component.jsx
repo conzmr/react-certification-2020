@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from '../../pages/Home';
 import NotFound from '../../pages/NotFound';
 import Favorites from '../../pages/Favorites';
@@ -7,10 +6,10 @@ import VideoDetail from '../../pages/VideoDetail';
 import Private from '../Private';
 import Layout from '../Layout';
 import GlobalProvider from '../../state/GlobalProvider';
+import { Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <BrowserRouter>
       <GlobalProvider>
         <Layout>
           <Switch>
@@ -35,7 +34,6 @@ function App() {
           </Switch>
         </Layout>
       </GlobalProvider>
-    </BrowserRouter>
   );
 }
 
