@@ -99,7 +99,7 @@ export default function VideoDetailInfo({
     return (
       <div className="flex flex-row">
         {isLoading
-          ? icons.map((i) => (
+          ? icons.map(() => (
               <div className="rounded-full bg-gray-200 dark:bg-mediumGray h-5 w-5 ml-3" />
             ))
           : icons}

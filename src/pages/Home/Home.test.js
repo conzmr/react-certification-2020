@@ -36,7 +36,8 @@ describe('Home', () => {
     render(<Home />);
     await waitFor(() =>
       expect(useYoutubeV3).toHaveBeenCalledWith(
-        'videos?chart=mostPopular&part=snippet&type=video&maxResults=28',
+        'videos',
+        { chart: 'mostPopular', maxResults: 28, part: 'snippet', type: 'video' },
         true
       )
     );
@@ -47,9 +48,11 @@ describe('Home', () => {
       return { state: { searchTerm: 'test' }, dispatch: jest.fn() };
     });
     render(<Home />);
+
     await waitFor(() =>
       expect(useYoutubeV3).toHaveBeenCalledWith(
-        'search?q=test&part=snippet&type=video&maxResults=28',
+        'search',
+        { maxResults: 28, part: 'snippet', q: 'test', type: 'video' },
         true
       )
     );

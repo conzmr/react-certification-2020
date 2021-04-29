@@ -4,6 +4,13 @@ import moment from 'moment';
 import VideoCard from './VideoCard.component';
 import { useGlobalContext } from '../../state/GlobalProvider';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    pathname: 'localhost:3000/example/path',
+  }),
+}));
+
 jest.mock('../../state/GlobalProvider', () => ({
   useGlobalContext: jest.fn(),
 }));

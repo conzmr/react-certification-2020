@@ -34,7 +34,7 @@ describe('Favorites', () => {
 
   it('does not calls youtube api if there is no favorite videos', async () => {
     render(<Favorites />);
-    await waitFor(() => expect(useYoutubeV3).toHaveBeenCalledWith('', true));
+    await waitFor(() => expect(useYoutubeV3).toHaveBeenCalledWith('omit', false, true));
   });
 
   it('requests for matching videos with key word when search term has some value', async () => {
@@ -44,7 +44,8 @@ describe('Favorites', () => {
     render(<Favorites />);
     await waitFor(() =>
       expect(useYoutubeV3).toHaveBeenCalledWith(
-        'videos?id=1&id=2&part=snippet&type=video',
+        'videos',
+        { favorites: ['1', '2'], part: 'snippet', type: 'video' },
         true
       )
     );

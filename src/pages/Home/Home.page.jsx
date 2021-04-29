@@ -2,7 +2,6 @@ import React from 'react';
 import VideosList from '../../components/VideosList';
 import useYoutubeV3 from '../../hooks/useYoutubeV3';
 import { useGlobalContext } from '../../state/GlobalProvider';
-import LoadingOverlay from '../../components/LoadingOverlay';
 
 function HomePage() {
   const { state } = useGlobalContext();

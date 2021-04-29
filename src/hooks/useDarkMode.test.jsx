@@ -14,7 +14,7 @@ describe('useDarkMode', () => {
   it('returns a previous set theme if any already set', async () => {
     window.localStorage.setItem('theme', 'dark');
     const { result } = renderHook(() => useDarkMode());
-    const [theme, toggleTheme, componentMounted] = result.current;
+    const [theme] = result.current;
     expect(theme).toBe('dark');
   });
 
