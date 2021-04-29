@@ -22,7 +22,7 @@ const GlobalReducer = (state, action) => {
       return {
         ...state,
         authenticated: true,
-        sessionData
+        sessionData,
       };
     }
     case 'SET_USER_DEAUTHENTICATED': {
@@ -31,7 +31,7 @@ const GlobalReducer = (state, action) => {
       return {
         ...state,
         authenticated: false,
-        sessionData
+        sessionData,
       };
     }
     case 'SET_ERROR':
