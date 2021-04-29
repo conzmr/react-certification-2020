@@ -27,10 +27,11 @@ describe('useYoutubeV3', () => {
 
   it('returns list of videos', async () => {
     const { result, waitForNextUpdate } = renderHook(
-      ({ url }) => useYoutubeV3(url, true),
+      ({ method, params }) => useYoutubeV3(method, params, true),
       {
         initialProps: {
-          url: 'url1',
+          method: 'url',
+          params: {},
         },
       }
     );

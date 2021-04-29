@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const useYoutubeV3 = (method, params, isList) => {
+const useYoutubeV3 = (method, params = {}, isList) => {
   const { favorites = [], ...queryParams } = params;
-  const favoriteQuery = favorites.reduce((p, fav) => `${p}id=${fav}&`, '');
+  const favoriteQuery =
+    favorites.length > 0 ? favorites.reduce((p, fav) => `${p}id=${fav}&`, '&') : '';
   const [response, setResponse] = useState(isList ? [] : {});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,7 +34,7 @@ const useYoutubeV3 = (method, params, isList) => {
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
-      if (method !== 'omit') {
+      if (method && method !== 'omit') {
         const res = await fetch(fullUrl);
         const data = await res.json();
         if (data.error) throw new Error(data.error);
