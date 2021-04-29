@@ -8,7 +8,7 @@ export default function SideNav() {
 
   const logout = (event) => {
     event.preventDefault();
-    dispatch({ type: 'SET_USER_AUTHENTICATED', payload: false });
+    dispatch({ type: 'SET_USER_DEAUTHENTICATED' });
     history.push('/');
   };
 
