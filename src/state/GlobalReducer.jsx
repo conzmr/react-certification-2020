@@ -17,11 +17,21 @@ const GlobalReducer = (state, action) => {
       };
     }
     case 'SET_USER_AUTHENTICATED': {
-      const isAuth = action.payload;
-      storage.set('authenticated', isAuth);
+      const sessionData = action.payload;
+      storage.set('sessionData', sessionData);
       return {
         ...state,
-        authenticated: isAuth,
+        authenticated: true,
+        sessionData
+      };
+    }
+    case 'SET_USER_DEAUTHENTICATED': {
+      const sessionData = {};
+      storage.set('sessionData', sessionData);
+      return {
+        ...state,
+        authenticated: false,
+        sessionData
       };
     }
     case 'SET_ERROR':

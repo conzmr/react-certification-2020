@@ -14,13 +14,14 @@ const getInitialState = () => {
     return preferedTheme;
   };
   const favorites = storage.get('favorites') || {};
-  const authenticated = storage.get('authenticated') || false;
+  const sessionData = storage.get('sessionData') || {};
   const theme = storage.get('theme') || getPreferedTheme();
   return {
     searchTerm: '',
     showLoginModal: false,
     favorites,
-    authenticated,
+    authenticated: Object.keys(sessionData).length > 0,
+    sessionData,
     theme,
   };
 };
